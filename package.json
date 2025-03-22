@@ -1,0 +1,13 @@
+{
+    "name": "template",
+    "version": "1.0.0",
+    "description": "前后端应用模板",
+    "main": "index.js",
+    "scripts": {
+        "dev": "pnpm -F frontend dev",
+        "server": "pnpm -F backend dev"
+    },
+    "keywords": [],
+    "author": "wangxing",
+    "license": "ISC"
+}

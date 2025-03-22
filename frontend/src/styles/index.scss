@@ -1,0 +1,40 @@
+@use "var";
+
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    background-color: var.$gray-6;
+    border-radius: 10px;
+    width: 4px; //y轴滚动条宽度
+    height: 4px; //x轴滚动条高度
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px; //滚动条的圆角
+    background: var.$gray-6; //滚动条的背景颜色
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px; //滚动条的背景区域的圆角
+    background: var.$gray-4; //滚动条的背景颜色
+}
