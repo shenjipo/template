@@ -1,23 +1,16 @@
 import type { AxiosResponse } from "axios"
 import { http } from "./axios"
 import type { Account } from "@/model/Account"
-/* 登录接口参数类型 */
-export interface Response<T> {
-    code: number,
-    msg: string,
-    data: T
-}
+import type { Response } from "@/model/Response"
 
-interface LoginData {
-    token: string,
-    user: any
-}
+
 export class LoginApi {
-    static login(params: {
-        account: string,
-        password: string
-    }) {
-        return http.post('/login', params).then((res: AxiosResponse<Response<any>>) => {
+    static login(params: { account: string, password: string }) {
+        return http.post('/login', params).then((res: AxiosResponse<Response<{
+            token: string,
+            user: Account
+        }>>) => {
+           
             return res.data
         })
     }

@@ -1,7 +1,6 @@
 export interface Account {
-    username: string,
+    account: string,
     password: string,
-    id: number,
     uuid: string,
     createTime: string,
     updateTime: string,

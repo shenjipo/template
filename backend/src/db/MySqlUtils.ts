@@ -1,8 +1,7 @@
 import mysql, { MysqlError, FieldInfo } from "mysql"
 
 
-export const Mysql = (sql: string, query?: Array<any>): Promise<{ rows: any, err: Nullable<MysqlError> }> => {
-    console.log(process.env.DB_HOST, 'DB_HOST')
+export const Mysql = (sql: string, query?: Array<any>): Promise<{ rows: Array<any>, err: Nullable<MysqlError> }> => {
     const mysqlInstance = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,

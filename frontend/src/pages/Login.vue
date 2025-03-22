@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { reactive, ref, useTemplateRef } from 'vue';
 import { FormRules } from '@/utils/ComponentUtils'
-import { LoginApi } from '@/api/login';
+import { LoginApi } from '@/api/Login';
 import { ElMessage } from 'el-cool';
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store';
@@ -52,10 +52,12 @@ const handleSubmit = () => {
             password: form.password,
         }
         LoginApi.login(params).then(res => {
-            
-            // store.userStore.setUser(res.user)
-            // localStorage.setItem('token', res.token)
-            router.push('/MainPage/BlogManage')
+
+            store.userStore.setUser(res.data.user)
+            localStorage.setItem('token', res.data.token)
+            router.push({
+                name: 'List'
+            })
         }).catch(err => {
 
             ElMessage.error(err.message || '失败')

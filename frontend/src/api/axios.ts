@@ -39,13 +39,13 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 /* 响应拦截器 */
 service.interceptors.response.use((response: AxiosResponse) => {
-    const { code, msg, data } = response.data
+    const { code, msg } = response.data
 
 
     // 根据自定义错误码判断请求是否成功
     if (code === 200) {
         // 将组件用的数据返回
-        return data
+        return response
     } else {
 
         // 处理业务错误。

@@ -5,10 +5,10 @@ const SECRET_KEY = 'login2021'
 import { PrefixPath } from '../constant/Constant';
 import { v4 as uuidv4 } from 'uuid';
 
-// 新建博客
+// 账号分页查询
 const queryAccount = async (req: Request, res: Response) => {
 
-
+    const { current, size }: { uuid: string, current: number, size: number } = req.body;
     const sql = "select `account`, `password`, `uuid`, `createTime`, `updateTime` from `user`"
 
     const { err, rows } = await Mysql(sql, [])
@@ -17,7 +17,10 @@ const queryAccount = async (req: Request, res: Response) => {
         res.send({
             code: 200,
             msg: "查询成功",
-            data: rows
+            data: {
+                records: rows.slice((current - 1) * size, (current - 1) * size + size),
+                total: rows.length
+            }
         })
     } else {
         res.send({
@@ -27,6 +30,27 @@ const queryAccount = async (req: Request, res: Response) => {
     }
 }
 
+// 根据uuid查询账号
+const queryAccountByUuid = async (req: Request, res: Response) => {
+
+    const { uuid }: { uuid: string } = req.body;
+    const sql = "select `account`, `password`, `uuid`, `createTime`, `updateTime` from `user` where `uuid` = ?"
+
+    const { err, rows } = await Mysql(sql, [uuid])
+    if (err == null && rows.length) {
+
+        res.send({
+            code: 200,
+            msg: "查询成功",
+            data: rows[0]
+        })
+    } else {
+        res.send({
+            code: 500,
+            msg: "查询失败"
+        })
+    }
+}
 
 // 创建账号
 const addAccount = async (req: Request, res: Response) => {
@@ -104,6 +128,7 @@ const editAccount = async (req: Request, res: Response) => {
 
 const InitAccountApi = (app: Express) => {
     app.use(PrefixPath + '/queryAccount', queryAccount)
+    app.use(PrefixPath + '/queryAccountByUuid', queryAccountByUuid)
     app.use(PrefixPath + '/addAccount', addAccount)
     app.use(PrefixPath + '/deleteAccount', deleteAccount)
     app.use(PrefixPath + '/editAccount', editAccount)

@@ -1,12 +1,13 @@
 <template>
     <div class="main-page">
+
         <div class="page-menu">
             <div class="menu-title">
                 <el-icon>
-                    <Menu />
+                    <Grid />
                 </el-icon>
                 <span style="margin-left: 8px;">
-                    xx管理
+                    xx管理系统
                 </span>
 
             </div>
@@ -28,9 +29,9 @@
                 </div>
                 <div class="header-right">
                     <el-dropdown @select="handleSelect">
-                        <el-avatar :style="{ backgroundColor: '#14a9f8' }">{{ store.userStore.getUser.username.slice(0,
-                            4)
-                        }}</el-avatar>
+                        <el-avatar :style="{ backgroundColor: '#14a9f8' }">
+                            {{ store.userStore.getUser.account.slice(0, 4) }}
+                        </el-avatar>
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="value">退出登录</el-dropdown-item>
@@ -50,22 +51,19 @@
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { onMounted, ref, onBeforeUnmount, computed } from 'vue'
-
+import type { Menu } from '@/model/Menu';
 
 const store = useStore()
 const router = useRouter()
-const currOnlineInfo = ref<{
-    usernames: Array<string>,
-    isOnlie: string
-}>({
-    usernames: [],
-    isOnlie: 'disconnected'
-})
+const route = useRoute()
 
 const currentMenu = ref(1)
 
 onMounted(() => {
-
+    const menu = menuList.find(item => item.href.includes(route.name as string))
+    if (menu) {
+        currentMenu.value = menu.id
+    }
 })
 onBeforeUnmount(() => {
 
@@ -73,15 +71,10 @@ onBeforeUnmount(() => {
 
 
 
-interface Menu {
-    id: number
-    name: string
-    href: string
-    icon: string
-}
+
 const menuList: Array<Menu> = [
-    { id: 1, name: 'xx列表', href: '/MainPage/BlogManage', icon: 'Notebook' },
-    { id: 2, name: '账号设置', href: '/MainPage/AccountManage', icon: 'user' },
+    { id: 1, name: 'xx列表', href: '/Menu/List', icon: 'Notebook' },
+    { id: 2, name: '账号设置', href: '/Menu/AccountManage', icon: 'user' },
 ]
 const handleMenuClick = (item: Menu) => {
     currentMenu.value = item.id
