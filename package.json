@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "dev": "pnpm -F frontend dev",
-        "server": "pnpm -F backend dev"
+        "build-frontend-docker": "pnpm -F frontend build:docker",
+        "server": "pnpm -F backend dev",
+        "build-backend-docker": "pnpm -F backend build"
     },
     "keywords": [],
     "author": "wangxing",

@@ -71,7 +71,7 @@ const handleSubmit = () => {
 @use "../styles/var";
 
 .login-box {
-    background-image: url("/frontend/assets/mountain.jpg");
+    background-image: url("/Template/assets/mountain.jpg");
     height: 100%;
     background-size: cover;
     display: flex;
